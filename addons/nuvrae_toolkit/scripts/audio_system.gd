@@ -76,6 +76,7 @@ func play_on_channel(
 	# VALIDATE THE EXISTENCE OF THE AUDIO CHANNEL FIRST:
 	var result = _channel_exists(audio_channels, audio_channel)
 	if result == false:
+		push_error("The channel '%d' doesn't seem to exist! Are you sure you put the right channel?" % [audio_channel])
 		return
 	
 	# ------------------
@@ -83,6 +84,7 @@ func play_on_channel(
 	# skip_busy functionality
 	# the game returns if an audio is already being played in an audio channel
 	if skip_busy and audio_channels[audio_channel].playing():
+		push_error("An audio is already playing on channel '%d'! Skipping!" % [audio_channel])
 		return 
 	
 	# otherwise, play the audio normally regardless of override
@@ -100,6 +102,7 @@ func stop_channel(audio_group: String, audio_channel: int):
 	# VALIDATE THE EXISTENCE OF THE AUDIO CHANNEL FIRST:
 	var result = _channel_exists(audio_channels, audio_channel)
 	if result == false:
+		push_error("The channel '%d' doesn't seem to exist! Are you sure you put the right channel?" % [audio_channel])
 		return
 	
 	# ------------------
@@ -118,6 +121,7 @@ func toggle_channel_playback(audio_group: String, audio_channel: int) -> bool:
 	# VALIDATE THE EXISTENCE OF THE AUDIO CHANNEL FIRST:
 	var result = _channel_exists(audio_channels, audio_channel)
 	if result == false:
+		push_error("The channel '%d' doesn't seem to exist! Are you sure you put the right channel?" % [audio_channel])
 		return false
 	
 	# ------------------
