@@ -249,6 +249,7 @@ func _preset_shake(tween: Tween, params: Dictionary):
 					params["target_node"].position.y = original_pos["value"].y + shake_offset
 				"both":
 					params["target_node"].position = original_pos["value"] + Vector2(shake_offset, shake_offset)
+				# NOTE: "Both" essentially shakes it at a diagonal, this is an intentional design.
 	
 	# Create another lambda function responsible for updating the shared decay progress
 	var do_decay = func(progress):
@@ -273,7 +274,7 @@ func _preset_shake(tween: Tween, params: Dictionary):
 	# Restore to the node's original position with zero shake offset
 	tween.tween_callback(
 		func():
-			params["target_node"].position = original_pos
+			params["target_node"].position = original_pos["value"]
 	)
 # ==============================
 
@@ -301,7 +302,7 @@ func play_animation(
 		# Generate a new ID until there's no match for guaranteed uniqueness
 		while animation_cache.has(animation_id):
 			animation_id = _generate_animation_id()
-		# NOTE: Animations with automatic ID's can't be managed!
+		# NOTE: Animations with automatic ID's can't be managed! This is an intentional design.
 	else:
 		# Use the provided ID instead
 		if not animation_cache.has(animation_id):
