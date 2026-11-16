@@ -181,7 +181,7 @@ func _preset_fade(tween: Tween, params: Dictionary):
 func _preset_change_property(tween: Tween, params: Dictionary):
 	# Validate whether the target node actually has the target property
 	if not Helpers.has_property(params["target_node"], params["target_property"]):
-		push_error("Target node doesn't have '%s', check if there's any typo's" % [params["target_property"]])
+		push_error("Target node doesn't have '%s', check if there's any typo's. Skipping step for now." % [params["target_property"]])
 		return
 	
 	# Animate the target property to the specified value
@@ -269,10 +269,15 @@ func _preset_shake(tween: Tween, params: Dictionary):
 		params["duration"],
 		params["duration"]
 	)
+	
+	# Restore to the node's original position with zero shake offset
+	tween.tween_callback(
+		func():
+			params["target_node"].position = original_pos
+	)
 # ==============================
 
 # ========= ANIMATION ===========
-
 ## ANIMATION:
 ## Acts as the execution layer for animations, translating an animation timeline into an actual tween animation
 ## (Core Function)
@@ -296,9 +301,14 @@ func play_animation(
 		# Generate a new ID until there's no match for guaranteed uniqueness
 		while animation_cache.has(animation_id):
 			animation_id = _generate_animation_id()
+		# NOTE: Animations with automatic ID's can't be managed!
 	else:
 		# Use the provided ID instead
-		animation_id = id
+		if not animation_cache.has(animation_id):
+			animation_id = id
+		else:
+			push_error("Cannot play animation with ID '%s', there's already an existing animation with that ID!" % [animation_id])
+			return
 	
 	# Register the newly created tween and initialize a container for caching
 	# the original property values of affected nodes
@@ -329,6 +339,10 @@ func play_animation(
 			target_node = default_target
 		else: # If it doesn't have either
 			push_error("No target nodes found! Returning Early")
+			# Cleanup: Kill the existing tween and release the animation from cache
+			tween.kill()
+			_release_animation(animation_id)
+			# Return
 			return
 		
 		## RUNTIME PARAMETER PREPARATION:
