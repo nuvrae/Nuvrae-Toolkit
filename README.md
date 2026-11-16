@@ -5,6 +5,8 @@ A collection of tools and utilities for Godot Engine, designed to make developme
 ## Features :
 
 - Custom AnimationSystem
+- Custom AudioSystem
+- Custom Utility Helpers
 - Data-driven animation timelines
 - Sequential and parallel animation operations
 - Reusable animation presets
