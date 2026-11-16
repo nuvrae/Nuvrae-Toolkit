@@ -115,7 +115,7 @@ Arguments:
 - sound: The AudioStream resource to play.
 - "SFX": The channel group to use. Use "Music" for music.
 - 0: The channel index.
-- true: Enables skip_busy, allowing the selected channel to be replaced if it is already playing.
+- true: Enables skip_busy, skips the audio from playing on a specific channel if it's already playing one.
 
 CHANNEL CONTROLS
 
