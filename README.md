@@ -7,7 +7,8 @@ It brings together different systems and helpers in one plugin, giving developer
 The goal is simple: spend less time building the same systems over and over, and more time actually making your game.
 
 ## Features :
-Animation System:
+**Animation System:**
+
 Create, organize, and play animations using a simple animation system.
 
 - Define animations using animation data instead of writing everything manually.
@@ -18,7 +19,8 @@ Create, organize, and play animations using a simple animation system.
 - Use looping animations and reusable animation definitions.
 - Control animations through a simple set of function calls.
 
-Audio System:
+**Audio System:**
+
 Manage your game's music and sound effects through a central audio system.
 
 - Play and manage background music.
@@ -26,7 +28,8 @@ Manage your game's music and sound effects through a central audio system.
 - Keep audio playback organized in one place.
 - Make it easier to trigger sounds from different parts of your game.
 
-Helper Systems:
+**Helper Systems:**
+
 Useful tools and functions to reduce repetitive work and make common tasks easier.
 
 - Access shared tools through simple function calls.
