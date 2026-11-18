@@ -1,0 +1,9 @@
+.godot/
+.import/
+*.tmp
+*.bak
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
